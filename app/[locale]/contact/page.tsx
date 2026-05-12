@@ -169,12 +169,12 @@ export default function Contact() {
             <div className="text-white text-sm font-medium">
               <p className="pb-1">{copy.pakistan}</p>
             <a
-            href="https://wa.me/923338875775"
+            href="https://wa.me/923005467345"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white"
           >
-            +923338875775
+            +923005467345
           </a>
             </div>
           </div>
