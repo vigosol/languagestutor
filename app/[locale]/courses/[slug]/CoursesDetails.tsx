@@ -224,7 +224,7 @@ function getTranslatedFaqs(faqs: any[], locale: 'en' | 'ar') {
 
            <div className="w-full py-4">
           <h3 className='text-2xl text-black font-semibold mb-5'>{t('instructor')}</h3>
-          <div className="w-full flex items-start gap-6">
+          <div className="w-full flex flex-col md:flex-row items-start gap-6">
             <Image src={urlFor(course?.instructor?.image).width(840).url()} alt="Image" width={220} height={268} className='max-w-[220px] rounded-lg max-h-[268px] w-full h-auto object-cover' />
             <div className="">
               <h4 className='text-base text-black font-medium'>{getTranslatedValue(course.instructor?.name, currentLocale)}</h4>
