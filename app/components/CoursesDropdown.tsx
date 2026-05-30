@@ -204,7 +204,7 @@ export default function CoursesDropdown() {
 
                   <div className="bg-black1 md:w-2/5 pt-5 md:pb-8 pb-3 px-3 flex flex-col items-center justify-center">
                     <h4 className='text-xs text-gray5 mb-2 text-start mr-auto'>{t('the_latest_news')}</h4>
-                    {sortedCourses.slice(0, 1).map((course) => (
+                    {sortedCourses.slice(0, 2).map((course) => (
                       <Link 
                         key={course._id}
                         href={`/courses/${course.slug}`}
