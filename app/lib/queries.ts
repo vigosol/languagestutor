@@ -91,8 +91,6 @@ export const featuredCoursesQuery = (locale: string) => ({
   query: `
     *[
       _type == "course" &&
-      featured == true &&
-      topCourse == true &&
       (__i18n_lang == $locale || !defined(__i18n_lang))
     ]{
       _id,
@@ -130,8 +128,7 @@ export const featuredCoursesQueryFallback = () => ({
   query: `
     *[
       _type == "course" &&
-      featured == true &&
-      topCourse == true
+      
     ]{
       _id,
       title,

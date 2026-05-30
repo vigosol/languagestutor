@@ -109,12 +109,12 @@ export default function CoursesDropdown() {
                 exit={{ opacity: 0, translateY: 10 }}
                 className="absolute w-full lg:max-w-[800px] bg-black2 sm:max-w-[93.5%] max-w-[88%] shadow-lg rounded-md lg:overflow-hidden overflow-y-auto border origin-top mt-1 border-black3 z-10"
               >
-                <div className="w-full flex md:flex-row flex-col lg:max-h-max max-h-[450px]">
+                <div className="w-full flex md:flex-row flex-col lg:max-h-max max-h-[500px] overflow-y-auto">
                   <div className="bg-black2 md:w-3/5 border-r border-black3 pt-5 md:pb-8 pb-5 px-3">
                     <div className="w-full flex flex-col gap-2">
-                      <div className="w-full">
+                      <div className="w-full ">
                         <h4 className='text-xs text-gray5 my-1'>{t('courses')}</h4>
-                        {sortedCourses.slice(0, 3).map((course) => (
+                        {sortedCourses.map((course) => (
                           <Link 
                             key={course._id}
                             href={`/courses/${course.slug}`}
