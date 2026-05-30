@@ -4,6 +4,15 @@ import { Dialog, DialogPanel, DialogBackdrop } from '@headlessui/react'
 import { useEffect } from 'react'
 import clsx from 'clsx'
 
+interface Props {
+  media: string
+  className?: string
+  panelStyle?: string
+  isOpenModel: boolean
+  setIsOpenModel: (isOpenModel: boolean) => void
+  isAutoplay?: boolean
+}
+
 export const LightBox = ({
   media,
   className = "",
