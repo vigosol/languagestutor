@@ -14,7 +14,7 @@ export default function IntroVideoModel() {
         <div className="w-full h-full absolute left-0 top-0 bg-gradient-to-t to-transparent from-black/60"></div>
         <div className="w-full relative z-10">
          <LightBox
-           media={"https://youtu.be/zZEEpy4N9HQ"}
+           media={"https://www.youtube.com/watch?v=zZEEpy4N9HQ"}
            isOpenModel={IsOpenModel}
            setIsOpenModel={setIsOpenModel}
            isAutoplay={true}

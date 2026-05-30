@@ -1,77 +1,95 @@
 'use client'
-import { Dialog, DialogPanel } from '@headlessui/react'
+
+import { Dialog, DialogPanel, DialogBackdrop } from '@headlessui/react'
 import { useEffect } from 'react'
-import { clsx } from 'clsx'
+import clsx from 'clsx'
 
-interface Props {
-  media: string;
-  className?: string;
-  panelStyle?: string;
-  isOpenModel: boolean;
-  setIsOpenModel: (isOpenModel: boolean) => void;
-  isAutoplay?: boolean; 
-}
+export const LightBox = ({
+  media,
+  className = "",
+  isOpenModel,
+  setIsOpenModel,
+  isAutoplay = false,
+}: Props) => {
 
-export const LightBox = ({ media, className = "", isOpenModel, setIsOpenModel, isAutoplay = false }: Props) => {
-  
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsOpenModel(false);
-      }
-    };
-    if (isOpenModel) {
-      window.addEventListener("keydown", handleKeyDown);
+      if (e.key === "Escape") setIsOpenModel(false)
     }
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpenModel]);
+
+    if (isOpenModel) {
+      window.addEventListener("keydown", handleKeyDown)
+    }
+
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [isOpenModel])
 
   function close() {
-    setIsOpenModel(false);
+    setIsOpenModel(false)
   }
 
   const getYouTubeEmbed = (url: string) => {
-    let videoId = "";
+    let videoId = ""
 
-    if (url.includes("youtu.be")) {
-      videoId = url.split("/").pop() ?? "";
-    } else if (url.includes("watch?v=")) {
-      videoId = url.split("watch?v=")[1].split("&")[0];
+    try {
+      const u = new URL(url)
+
+      if (u.hostname.includes("youtu.be")) {
+        videoId = u.pathname.replace("/", "")
+      }
+
+      if (u.hostname.includes("youtube.com")) {
+        videoId = u.searchParams.get("v") || ""
+      }
+    } catch {
+      return url
     }
 
-    if (!videoId) return url;
+    if (!videoId) return url
 
-    return `https://www.youtube.com/embed/${videoId}?autoplay=${isAutoplay ? "1" : "0"}&rel=0&modestbranding=1`;
-  };
+    return `https://www.youtube.com/embed/${videoId}?autoplay=${
+      isAutoplay ? 1 : 0
+    }&rel=0`
+  }
 
-  const isImage = /\.(jpg|jpeg|png|gif|webp)$/.test(media);
-  const isYouTube = media.includes("youtube.com") || media.includes("youtu.be");
+  const isImage = /\.(jpg|jpeg|png|gif|webp)$/.test(media)
+  const isYouTube = media.includes("youtube") || media.includes("youtu.be")
 
   return (
-    <Dialog open={isOpenModel} as="div" className="relative z-50" onClose={close}>
-      <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-        <DialogPanel className={clsx("w-fit rounded-xl overflow-hidden bg-white/5 backdrop-blur-lg")}>
+    <Dialog open={isOpenModel} onClose={close} className="relative z-50">
+
+      {/* ✅ THIS is the key fix */}
+      <DialogBackdrop className="fixed inset-0 bg-black/80 backdrop-blur-md" />
+
+      <div className="fixed inset-0 flex items-center justify-center p-4">
+
+        <DialogPanel
+          className="w-[95vw] h-[80vh] md:w-[80vw] md:h-[85vh]"
+        >
 
           {isImage ? (
-            <img src={media} alt="Lightbox Preview" className={clsx("w-full h-auto rounded-lg", className)} />
+            <img
+              src={media}
+              className={clsx("w-full h-full object-contain rounded-lg", className)}
+            />
           ) : isYouTube ? (
             <iframe
-              className={clsx("w-fit aspect-video h-[90vh] rounded-lg", className)}
+              key={media}
+              className="w-full h-full rounded-lg"
               src={getYouTubeEmbed(media)}
-              title="YouTube Video"
               allow="autoplay; encrypted-media; fullscreen"
               allowFullScreen
-            ></iframe>
+            />
           ) : (
             <iframe
-              className={clsx("w-fit h-[90vh] rounded-lg", className)}
+              className="w-full h-full rounded-lg"
               src={media}
-              title="Embedded Content"
               allowFullScreen
-            ></iframe>
+            />
           )}
+
         </DialogPanel>
       </div>
     </Dialog>
-  );
-};
+  )
+}
