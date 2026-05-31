@@ -20,8 +20,8 @@ export default function IntroVideoModel() {
            isAutoplay={true}
          />
            <div className="max-w-[600px]">
-           <h2 className="md:text-5xl text-28 leading-tight font-semibold text-white"><span>{t('intro-video-heading')}</span></h2>
-           <p className="md:text-lg texts-m text-white mb-2 sm:mt-5 mt-3"><span>{t('intro-video-desc')}</span></p>
+           <h2 className="md:text-5xl text-28 leading-tight font-semibold text-white invisible"><span>{t('intro-video-heading')}</span></h2>
+           <p className="md:text-lg texts-m text-white mb-2 sm:mt-5 mt-3 invisible"><span>{t('intro-video-desc')}</span></p>
            <div className="inline-flex text-base text-white">
              <Image src="/play-icon.svg" alt="play-icon" width={20} height={20} />
              <span>{t('intro-video-watch')}</span>
