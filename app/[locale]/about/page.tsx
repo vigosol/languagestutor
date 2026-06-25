@@ -1,5 +1,6 @@
 import { Link } from "@/i18n/navigation";
 
+import { buildMetadata, getPageSeo } from '@/app/lib/seo';
 const aboutCopy = {
   en: {
     hero:
@@ -115,6 +116,20 @@ const aboutCopy = {
     ],
   },
 };
+
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const seo = await getPageSeo('about');
+
+  return buildMetadata({
+    locale,
+    path: '/about',
+    seo,
+    fallbackTitle: 'About | LanguagesTutor',
+    fallbackDescription: 'Learn about LanguagesTutor and our online language learning programs.',
+  });
+}
 
 export default async function About({
   params,

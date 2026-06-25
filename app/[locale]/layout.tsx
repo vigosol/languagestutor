@@ -5,6 +5,10 @@ import { ReactNode } from 'react';
 import type { Metadata } from "next";
 import { Geist, Noto_Sans_Arabic  } from "next/font/google";
 import "../globals.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { getSiteSettings } from "../lib/seo";
+import FloatingWhatsApp from "../components/common/FloatingWhatsapp";
+import ChatWidgets from "../components/common/ChatWidgets";
 import Navbar from "../components/common/Navbar";
 import { Toaster } from 'react-hot-toast'
 import { GlobalProvider } from "../context/GlobalContext";
@@ -46,16 +50,31 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
+  const siteSettings = await getSiteSettings();
+
 
 
   return (
     <html suppressHydrationWarning lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
       <body className={`${geistSans.variable} ${noto_sans_arabic.variable} ${(locale==="ar") ? 'noto_sans_arabic': 'font-geist'} antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
+         {
+  siteSettings?.googleAnalyticsId && (
+    <GoogleAnalytics
+      gaId={siteSettings.googleAnalyticsId}
+    />
+  )
+} 
         <GlobalProvider>
               <Navbar/>
               {children} 
               <Footer/>
+              <ChatWidgets
+  desktopChatTool={siteSettings?.desktopChatTool}
+  mobileChatTool={siteSettings?.mobileChatTool}
+  whatsappNumber={siteSettings?.whatsappNumber}
+  tawkToWidgetUrl={siteSettings?.tawkToWidgetUrl}
+/>
               {/* <DemoFormPopup/> */}
               <Toaster
                 position="top-right" 

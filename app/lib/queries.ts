@@ -171,6 +171,10 @@ export const languagesCoursesQuery = (locale: string) => ({
     ]{
       _id,
       title,
+      seoTitle,
+      seoDescription,
+      seoKeywords,
+      ogImage,
       featured,
       description,
       mainImage,
@@ -356,6 +360,10 @@ export const getSingleBlogQuery = (slug: string, locale: string) => ({
     *[_type == "blog" && slug.current == $slug && (__i18n_lang == $locale || !defined(__i18n_lang))][0]{
       _id,
       title,
+      seoTitle,
+      seoDescription,
+      seoKeywords,
+      ogImage,
       featured,
       description,
       body,
@@ -399,6 +407,10 @@ export const getSingleCourseQuery = (slug: string, locale: string) => ({
     *[_type == "course" && slug.current == $slug && (__i18n_lang == $locale || !defined(__i18n_lang))][0]{
       _id,
       title,
+      seoTitle,
+      seoDescription,
+      seoKeywords,
+      ogImage,
       featured,
       description,
       body,
@@ -481,4 +493,19 @@ export const getSingleCourseQuery = (slug: string, locale: string) => ({
   `,
   params: { slug, locale }
 });
+
+export const siteSettingsQuery = {
+  query: `
+    *[_type == "siteSettings"][0]{
+      googleAnalyticsId,
+      googleTagManagerId,
+      facebookPixelId,
+      whatsappNumber,
+      googleSiteVerification,
+      bingVerification,
+      defaultOgImage
+    }
+  `,
+  params: {}
+};
 

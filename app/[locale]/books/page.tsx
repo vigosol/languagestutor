@@ -1,5 +1,20 @@
 
 
+import { buildMetadata, getPageSeo } from '@/app/lib/seo';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const seo = await getPageSeo('books');
+
+  return buildMetadata({
+    locale,
+    path: '/books',
+    seo,
+    fallbackTitle: 'Books | LanguagesTutor',
+    fallbackDescription: 'Explore language learning books from LanguagesTutor.',
+  });
+}
+
 export default function Books() {
 
   return (

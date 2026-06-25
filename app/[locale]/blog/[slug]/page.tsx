@@ -10,6 +10,7 @@ import { getSingleBlogQuery, allBlogQuery } from "../../../lib/queries"; // Adde
 import { sanityClient } from "../../../lib/sanity";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { buildMetadata } from "@/app/lib/seo";
 
 function getLocalizedText(field: any, fallback: string, locale: string) {
   if (!field) return fallback;
@@ -32,6 +33,29 @@ interface PageProps {
   };
 }
 
+
+export async function generateMetadata({ params }: PageProps) {
+  const { slug, locale } = params;
+  const { query, params: queryParams } = getSingleBlogQuery(slug, locale);
+  const blog = await sanityClient.fetch(query, queryParams);
+
+  if (!blog) {
+    return buildMetadata({
+      locale,
+      path: `/blog/${slug}`,
+      fallbackTitle: 'Blog | LanguagesTutor',
+      fallbackDescription: 'Read this language learning article from LanguagesTutor.',
+    });
+  }
+
+  return buildMetadata({
+    locale,
+    path: `/blog/${slug}`,
+    seo: blog,
+    fallbackTitle: `${getLocalizedText(blog.title, 'Blog', locale)} | LanguagesTutor`,
+    fallbackDescription: getLocalizedText(blog.description, 'Read this language learning article from LanguagesTutor.', locale),
+  });
+}
 
 export default async function BlogDetails({ params }: PageProps) {
   const awaitedParams = await params;

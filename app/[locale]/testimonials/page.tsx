@@ -9,13 +9,21 @@ import { reviewsQuery } from '../../lib/queries'
 import ClientReview from '../../components/ClientReview'
 import { getLocale, getTranslations } from 'next-intl/server'
 
-export const metadata: Metadata = {
-  title: "Testimonials | LanguagesTutor",
-  description: "Languages Tutor.",
-  icons: {
-    icon: '/favicon.png',
-  },
-};
+
+import { buildMetadata, getPageSeo } from '@/app/lib/seo';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const seo = await getPageSeo('testimonials');
+
+  return buildMetadata({
+    locale,
+    path: '/testimonials',
+    seo,
+    fallbackTitle: 'Testimonials | LanguagesTutor',
+    fallbackDescription: 'Read student testimonials and success stories from LanguagesTutor.',
+  });
+}
 
 const Testimonials = async () => {
   const locale = await getLocale()

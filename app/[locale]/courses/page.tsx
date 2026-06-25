@@ -7,14 +7,22 @@ import { Metadata } from 'next'
 import AllCourses from './_component/AllCourses'
 import { getTranslations } from 'next-intl/server'
 
-export const metadata: Metadata = {
-  title: "Courses | LanguagesTutor",
-  description: "Languages Tutor.",
-  icons: {
-    icon: '/favicon.png',
-  },
-};
 
+
+import { buildMetadata, getPageSeo } from '@/app/lib/seo';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const seo = await getPageSeo('courses');
+
+  return buildMetadata({
+    locale,
+    path: '/courses',
+    seo,
+    fallbackTitle: 'Courses | LanguagesTutor',
+    fallbackDescription: 'Explore online language courses from LanguagesTutor.',
+  });
+}
 
 const Courses = async () => {
   const t = await getTranslations()

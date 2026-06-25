@@ -18,12 +18,22 @@ import { getTranslations } from 'next-intl/server';
 
 
 
-export const metadata: Metadata = {
-  title: "LanguagesTutor",
-  description: "Languages Tutor.",
- 
-};
 
+
+import { buildMetadata, getPageSeo } from '@/app/lib/seo';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const seo = await getPageSeo('home');
+
+  return buildMetadata({
+    locale,
+    path: '/',
+    seo,
+    fallbackTitle: 'LanguagesTutor',
+    fallbackDescription: 'Learn languages online with LanguagesTutor.',
+  });
+}
 
 export default async function Home() {
   const t = await getTranslations();
