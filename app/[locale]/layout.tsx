@@ -3,7 +3,7 @@ import { getMessages } from 'next-intl/server';
 import {routing} from '@/i18n/routing';
 import { ReactNode } from 'react';
 import type { Metadata } from "next";
-import { Geist, Noto_Sans_Arabic  } from "next/font/google";
+import localFont from "next/font/local";
 import "../globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { getSiteSettings } from "../lib/seo";
@@ -16,15 +16,18 @@ import Footer from '../components/common/Footer';
 import DemoFormPopup from '../components/DemoFormPopup';
 import NotFound from './not-found';
 
-const geistSans = Geist({
+const geistSans = localFont({
+  src: "../fonts/GeistVF.woff2",
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  display: "swap",
+  weight: "100 900",
 });
 
-const noto_sans_arabic = Noto_Sans_Arabic({
-  variable: "--font-noto_sans_arabic",
-  subsets: ["arabic"],
-  weight: ["400", "700"],
+const notoSansArabic = localFont({
+  src: "../fonts/NotoSansArabicVF.woff2",
+  variable: "--font-noto-sans-arabic",
+  display: "swap",
+  weight: "100 900",
 });
 
 
@@ -56,7 +59,11 @@ export default async function LocaleLayout({
 
   return (
     <html suppressHydrationWarning lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
-      <body className={`${geistSans.variable} ${noto_sans_arabic.variable} ${(locale==="ar") ? 'noto_sans_arabic': 'font-geist'} antialiased`}>
+      <body
+  className={`${geistSans.variable} ${notoSansArabic.variable} ${
+    locale === "ar" ? "font-noto_sans_arabic" : "font-geist"
+  } antialiased`}
+>
         <NextIntlClientProvider locale={locale} messages={messages}>
          {
   siteSettings?.googleAnalyticsId && (

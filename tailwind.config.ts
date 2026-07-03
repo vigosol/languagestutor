@@ -76,9 +76,9 @@ export default {
   			}
   		},
   		fontFamily: {
-  			geist: 'var(--font-geist-sans)',
-  			noto_sans_arabic: 'var(--font-noto_sans_arabic)'
-  		},
+  geist: ['var(--font-geist-sans)', 'Arial', 'Helvetica', 'sans-serif'],
+  noto_sans_arabic: ['var(--font-noto-sans-arabic)', 'Tahoma', 'Arial', 'sans-serif'],
+},
   		fontSize: {
   			'56': [
   				'56px',
@@ -120,7 +120,6 @@ export default {
   	}
   },
   plugins: [
-    require('tailwindcss-animate'),
-    require('@tailwindcss/line-clamp'),
+    require('tailwindcss-animate')
   ],
 } satisfies Config;

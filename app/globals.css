@@ -170,4 +170,12 @@
   body {
     @apply bg-background text-foreground;}}
 
+    .font-geist {
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+.font-arabic {
+  font-family: var(--font-noto-sans-arabic), Tahoma, Arial, sans-serif;
+}
+
     

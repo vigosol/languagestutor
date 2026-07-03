@@ -14,14 +14,15 @@ import {
 } from "@/app/lib/schema";
 
 interface CoursePageProps {
-  params: {
+  params: Promise<{
     locale: string;
     slug: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: CoursePageProps) {
-  const { slug, locale } = params;
+  const { slug, locale } = await params;
+
   const { query, params: queryParams } = getSingleCourseQuery(slug, locale);
   const course = await sanityClient.fetch(query, queryParams);
 
@@ -44,7 +45,7 @@ export async function generateMetadata({ params }: CoursePageProps) {
 }
 
 export default async function CoursePage({ params }: CoursePageProps) {
-  const { slug, locale } = params;
+  const { slug, locale } = await params;
 
   const { query, params: queryParams } = getSingleCourseQuery(slug, locale);
   const courseData = await sanityClient.fetch(query, queryParams);
