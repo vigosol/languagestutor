@@ -48,7 +48,10 @@ export function buildMetadata({
   const description = getLocalizedValue(seo?.seoDescription, locale, fallbackDescription);
   const keywords = getLocalizedKeywords(seo?.seoKeywords, locale);
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  const canonical = `${SITE_URL}/${locale}${normalizedPath === '/' ? '' : normalizedPath}`;
+  const canonical =
+  locale === 'ar'
+    ? `${SITE_URL}/ar${normalizedPath === '/' ? '' : normalizedPath}`
+    : `${SITE_URL}${normalizedPath === '/' ? '' : normalizedPath}`;
   const ogImageUrl = seo?.ogImage
   ? urlFor(seo.ogImage).width(1200).height(630).url()
   : `${SITE_URL}/og-default.jpg`;
@@ -57,12 +60,22 @@ export function buildMetadata({
     title,
     description,
     keywords,
+    robots: {
+  index: true,
+  follow: true,
+  googleBot: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+  },
+},
     alternates: {
       canonical,
       languages: {
-        en: `${SITE_URL}/en${normalizedPath === '/' ? '' : normalizedPath}`,
-        ar: `${SITE_URL}/ar${normalizedPath === '/' ? '' : normalizedPath}`,
-      },
+  en: `${SITE_URL}${normalizedPath === '/' ? '' : normalizedPath}`,
+  ar: `${SITE_URL}/ar${normalizedPath === '/' ? '' : normalizedPath}`,
+  'x-default': `${SITE_URL}${normalizedPath === '/' ? '' : normalizedPath}`,
+},
     },
     openGraph: {
   title,

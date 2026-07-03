@@ -11,6 +11,14 @@ import { sanityClient } from "../../../lib/sanity";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { buildMetadata } from "@/app/lib/seo";
+import JsonLd from "@/app/components/JsonLd";
+import {
+  articleSchema,
+  breadcrumbSchema,
+  webpageSchema,
+  videoObjectSchema,
+  getSchemaText,
+} from "@/app/lib/schema";
 
 function getLocalizedText(field: any, fallback: string, locale: string) {
   if (!field) return fallback;
@@ -95,10 +103,67 @@ export default async function BlogDetails({ params }: PageProps) {
   const topBlogsQuery = allBlogQuery(locale);
   const topBlogs = await sanityClient.fetch(topBlogsQuery.query, topBlogsQuery.params);
   const t = await getTranslations({ locale });
+  
+  const isArabic = locale === "ar";
+const blogPath = `/blog/${slug}`;
 
+const blogTitle = getSchemaText(blog?.title, locale);
+const blogDescription = getSchemaText(blog?.description, locale);
+
+const blogImageUrl = blog?.mainImage
+  ? getSanityImageUrl(
+      blog?.mainImage,
+      "https://www.languagestutor.org/og-default.jpg",
+      1200
+    )
+  : "https://www.languagestutor.org/og-default.jpg";
+
+const blogVideoSchema = videoObjectSchema({
+  locale,
+  path: blogPath,
+  name: blogTitle,
+  description: blogDescription,
+  thumbnailUrl: blog?.video?.poster?.image,
+  contentUrl: blog?.video?.url,
+});
+
+const blogPageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    webpageSchema({
+      locale,
+      path: blogPath,
+      title: `${blogTitle} | LanguagesTutor`,
+      description: blogDescription,
+    }),
+    breadcrumbSchema(locale, [
+      {
+        name: isArabic ? "الرئيسية" : "Home",
+        path: "/",
+      },
+      {
+        name: isArabic ? "المدونة" : "Blog",
+        path: "/blog",
+      },
+      {
+        name: blogTitle,
+        path: blogPath,
+      },
+    ]),
+    articleSchema({
+      blog,
+      locale,
+      slug,
+      imageUrl: blogImageUrl,
+    }),
+    blogVideoSchema,
+  ].filter(Boolean),
+};
 
   return (
-    <main className="bg-neutral1">
+    <>
+      <JsonLd data={blogPageSchema} />
+      <main className="bg-neutral1">
       <section className="py-14 lg bg-black1 bg-cover bg-center bg-no-repeat">
         <div className="w-full max-w-[1340px] px-5 mx-auto">
           <div className="w-full grid md:grid-cols-2 grid-cols-1 lg:gap-10 gap-6 justify-between">
@@ -482,6 +547,7 @@ export default async function BlogDetails({ params }: PageProps) {
       </section>
 
       <NewsLetterSection />
-    </main>
+         </main>
+    </>
   )
-} 
+}

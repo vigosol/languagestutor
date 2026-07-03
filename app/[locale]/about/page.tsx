@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import StaticPageSchema from "@/app/components/StaticPageSchema";
 
 import { buildMetadata, getPageSeo } from '@/app/lib/seo';
 const aboutCopy = {
@@ -141,7 +142,8 @@ export default async function About({
   const isArabic = locale === "ar";
 
   return (
-    <>
+  <>
+    <StaticPageSchema page="about" locale={locale} />
       <section className="pt-14 md:pb-20 pb-10">
         <div className="w-full max-w-[1288px] mx-auto px-5">
           <div>

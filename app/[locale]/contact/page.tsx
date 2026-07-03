@@ -1,5 +1,7 @@
 import ContactClient from './ContactClient';
 import { buildMetadata, getPageSeo } from '@/app/lib/seo';
+import StaticPageSchema from "@/app/components/StaticPageSchema";
+import { getLocale } from "next-intl/server";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -14,6 +16,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   });
 }
 
-export default function ContactPage() {
-  return <ContactClient />;
+export default async function ContactPage() {
+  const locale = await getLocale();
+
+  return (
+    <>
+      <StaticPageSchema page="contact" locale={locale} />
+      <ContactClient />
+    </>
+  );
 }

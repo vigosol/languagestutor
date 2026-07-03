@@ -5,7 +5,8 @@ import FaqsSection from '../../components/FaqsSection'
 import NewsLetterSection from '../../components/NewsLetterSection'
 import { Metadata } from 'next'
 import BlogSection from './_component/BlogSection'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
+import StaticPageSchema from "@/app/components/StaticPageSchema";
 
 
 
@@ -25,9 +26,12 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 const Blog = async () => {
+  const locale = await getLocale()
   const t = await getTranslations()
 
   return (
+  <>
+    <StaticPageSchema page="blog" locale={locale} />
     <main className='bg-neutral1'>
         <section className='py-14 lg bg-black1 bg-cover bg-center bg-no-repeat' >
             <div className="w-full max-w-[1340px] px-5 mx-auto">
@@ -90,7 +94,8 @@ const Blog = async () => {
        
 
     </main>
-  )
+</>
+)
 }
 
 export default Blog

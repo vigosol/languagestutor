@@ -8,6 +8,9 @@ import { sanityClient } from '../../lib/sanity'
 import { reviewsQuery } from '../../lib/queries'
 import ClientReview from '../../components/ClientReview'
 import { getLocale, getTranslations } from 'next-intl/server'
+import StaticPageSchema from "@/app/components/StaticPageSchema";
+import JsonLd from "@/app/components/JsonLd";
+import { reviewsPageSchema } from "@/app/lib/schema";
 
 
 import { buildMetadata, getPageSeo } from '@/app/lib/seo';
@@ -32,8 +35,15 @@ const Testimonials = async () => {
     reviewsQuery(locale).query,
     reviewsQuery(locale).params
   )
+  const reviewsSchema = reviewsPageSchema({
+  reviews,
+  locale,
+});
 
-  return (
+ return (
+  <>
+    <StaticPageSchema page="testimonials" locale={locale} />
+    {reviewsSchema && <JsonLd data={{ "@context": "https://schema.org", "@graph": [reviewsSchema] }} />}
     <main className='bg-neutral1'>
       <section className='py-14 lg bg-black1 bg-cover bg-center bg-no-repeat'>
         <div className="w-full max-w-[1340px] px-5 mx-auto">
@@ -79,7 +89,8 @@ const Testimonials = async () => {
       <FaqsSection />
       <NewsLetterSection />
     </main>
-  )
+</>
+)
 }
 
 export default Testimonials

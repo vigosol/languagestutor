@@ -14,13 +14,20 @@ import BookDemoButton from "../components/BookDemoButton";
 import { Link } from '@/i18n/navigation'; 
 
 
+
 import { getTranslations } from 'next-intl/server';
 
-
-
-
-
 import { buildMetadata, getPageSeo } from '@/app/lib/seo';
+
+import JsonLd from "@/app/components/JsonLd";
+import {
+  organizationSchema,
+  personSchema,
+  websiteSchema,
+  webpageSchema,
+  breadcrumbSchema,
+  videoObjectSchema
+} from "@/app/lib/schema";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -35,9 +42,55 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   });
 }
 
-export default async function Home() {
+export default async function Home({
+  params
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   const t = await getTranslations();
+
+  const isArabic = locale === "ar";
+
+  const homeSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationSchema(locale),
+      personSchema(locale),
+      websiteSchema(),
+      webpageSchema({
+        locale,
+        path: "/",
+        title: isArabic
+          ? "تعلّم البشتو والعربي والأردي أونلاين | LanguagesTutor"
+          : "Learn Pashto, Arabic & Urdu Online | LanguagesTutor",
+        description: isArabic
+          ? "تعلّم البشتو والعربي والأردي مع الأستاذ محسن علي من خلال دروس أونلاين مباشرة. دورات عملية للأطفال والكبار والسيدات، تناسب جميع المستويات ومن أي مكان بالعالم."
+          : "Learn Pashto, Arabic, and Urdu online with expert instructor Mohsin Ali. Interactive live classes for kids, adults, ladies, and professionals worldwide."
+      }),
+      breadcrumbSchema(locale, [
+        {
+          name: isArabic ? "الرئيسية" : "Home",
+          path: "/"
+        }
+      ]),
+videoObjectSchema({
+  locale,
+  path: "/",
+  name: isArabic
+    ? "فيديو تعريفي عن LanguagesTutor"
+    : "LanguagesTutor Intro Video",
+  description: isArabic
+    ? "فيديو قصير يعرّفك بمنصة LanguagesTutor ودورات البشتو والعربي والأردي والإنجليزي مع الأستاذ محسن علي."
+    : "A short introduction to LanguagesTutor, online language courses, and instructor Mohsin Ali.",
+  thumbnailUrl: "https://www.languagestutor.org/MasterclassCourse.png",
+  contentUrl: "https://www.youtube.com/embed/zZEEpy4N9HQ"
+})
+    ].filter(Boolean)
+  };
   return (
+  <>
+    <JsonLd data={homeSchema} />
     <main className="w-full bg-neutral1">
       
     <section className="w-full bg-no-repeat lg:pb-0 pb-6 bg-cover lg:max-h-[75vh] overflow-hidden min-h-[620px] bg-center" style={{backgroundImage: 'url("/hero-bg-1.svg")' }}>
@@ -199,8 +252,7 @@ export default async function Home() {
 
     <NewsLetterSection/>
 
-    </main>
-
+       </main>
+  </>
   );
 }
- 
