@@ -1,0 +1,41 @@
+# LanguagesTutor
+
+> LanguagesTutor is an online language academy offering live, one-on-one classes in Pashto, Arabic, and Urdu, taught by certified tutors. Founded by Mohsin Ali, the platform also offers a Quran Reading & Tajweed course. The entire site is available in both English and Arabic (Arabic version under the /ar path).
+
+FAQs are not on a separate page — each course page and the homepage include their own embedded FAQ section covering common questions about that course or the academy in general.
+
+## Courses
+
+- [All Courses](https://www.languagestutor.org/courses): Full catalog of live online language courses across Pashto, Arabic, Urdu, and Quran studies.
+- [Pashto Beginner Course](https://www.languagestutor.org/courses/pashto-beginner-course): Introductory Pashto for new learners, covering spoken basics and reading.
+- [Advanced Pashto Course](https://www.languagestutor.org/courses/advanced-pashto-course): For learners with existing basics, focused on fluency and conversation.
+- [Professional Pashto Course](https://www.languagestutor.org/courses/professional-pashto-course): Formal and business-oriented Pashto communication skills.
+- [Pashto Dialects Course](https://www.languagestutor.org/courses/pashto-dialects-course): Covers regional Pashto dialect variation and pronunciation.
+- [Pashto Mastery Program](https://www.languagestutor.org/courses/pashto-mastery-program): Comprehensive beginner-to-advanced Pashto learning path.
+- [Customized Pashto Course](https://www.languagestutor.org/courses/customized-pashto-course): Pashto lessons tailored to a learner's specific goals.
+- [Arabic Beginner Course](https://www.languagestutor.org/courses/arabic-beginner-course): Introductory Arabic for new learners.
+- [Gulf Arabic Course](https://www.languagestutor.org/courses/gulf-arabic-course): Spoken Arabic focused on Gulf/GCC dialect and everyday use.
+- [Urdu Language Course](https://www.languagestutor.org/courses/urdu-language-course): Urdu course covering speaking, reading, and writing.
+- [Quran Reading & Tajweed](https://www.languagestutor.org/courses/quran-reading-and-tajweed): Quran recitation instruction with Tajweed rules and pronunciation correction.
+
+## Resources
+
+- [Books](https://www.languagestutor.org/books): Language-learning books and materials offered by LanguagesTutor.
+
+## Blog
+
+- [Blog Home](https://www.languagestutor.org/blog): Articles on language learning tips and academy updates.
+- [Numbers in Urdu from 1 to 10](https://www.languagestutor.org/blog/numbers-in-urdu-from-1-to-10): Basic Urdu numbers lesson.
+- [Online Arabic Classes: One-on-One Classes with Best Tutors](https://www.languagestutor.org/blog/online-arabic-classes-one-on-one-classes-with-best-tutors): Overview of the one-on-one Arabic class format and tutors.
+- [New Website, Course, and Product Updates – April 2024](https://www.languagestutor.org/blog/new-website-course-and-product-updates-april-2024): Announcement covering site, course, and product changes.
+
+## Company
+
+- [Home](https://www.languagestutor.org): Overview of LanguagesTutor's courses, teaching approach, and homepage FAQ.
+- [About](https://www.languagestutor.org/about): Background on LanguagesTutor and founder Mohsin Ali.
+- [Testimonials](https://www.languagestutor.org/testimonials): Student reviews and success stories.
+- [Contact](https://www.languagestutor.org/contact): Contact form for enquiries and course sign-ups.
+
+## Optional
+
+- [Arabic Version of the Site](https://www.languagestutor.org/ar): Full Arabic-language mirror of the site, including /ar/about, /ar/contact, /ar/courses, /ar/blog, /ar/testimonials, /ar/books, and Arabic versions of every course and blog post.

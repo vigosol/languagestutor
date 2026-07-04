@@ -35,15 +35,15 @@ function getSanityImageUrl(source: any, fallback: string, width: number) {
 }
 
 interface PageProps {
-  params: {
+  params: Promise<{
     locale: "en" | "ar";
     slug: string;
-  };
+  }>;
 }
 
 
 export async function generateMetadata({ params }: PageProps) {
-  const { slug, locale } = params;
+  const { slug, locale } = await params;
   const { query, params: queryParams } = getSingleBlogQuery(slug, locale);
   const blog = await sanityClient.fetch(query, queryParams);
 
@@ -66,8 +66,7 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function BlogDetails({ params }: PageProps) {
-  const awaitedParams = await params;
-  const { slug, locale } = awaitedParams;
+  const { slug, locale } = await params;
   
   const { query, params: queryParams } = getSingleBlogQuery(slug, locale);
   const blog = await sanityClient.fetch(query, queryParams);

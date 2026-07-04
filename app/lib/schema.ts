@@ -130,8 +130,15 @@ export function webpageSchema({
     name: title,
     description,
     isPartOf: {
-      "@id": `${SITE_URL}/#website`
-    },
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  name: "LanguagesTutor",
+  url: SITE_URL,
+  publisher: {
+    "@id": `${SITE_URL}/#organization`
+  },
+  inLanguage: ["en", "ar"]
+},
     about: {
       "@id": `${SITE_URL}/#organization`
     },
@@ -197,13 +204,20 @@ export function courseSchema({
     url: pageUrl,
     inLanguage: locale,
     provider: {
-      "@id": `${SITE_URL}/#organization`,
-    },
-    instructor: {
-      "@type": "Person",
-      name: instructorName || "Mohsin Ali",
-      url: getPageUrl(locale, "/about"),
-    },
+  "@type": "Organization",
+  "@id": `${SITE_URL}/#organization`,
+  name: "LanguagesTutor",
+  url: SITE_URL,
+  logo: {
+    "@type": "ImageObject",
+    url: `${SITE_URL}/favicon.png`,
+  },
+},
+creator: {
+  "@type": "Person",
+  name: instructorName || "Mohsin Ali",
+  url: getPageUrl(locale, "/about"),
+},
     educationalLevel: level || undefined,
     teaches: whatYouLearn.length ? whatYouLearn : undefined,
     hasCourseInstance: {

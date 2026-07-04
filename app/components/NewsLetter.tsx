@@ -36,15 +36,22 @@ export default function NewsLetter() {
   return (
     <div>
       <form onSubmit={handleSubmit} className="flex md:flex-row flex-col items-center gap-4">
-        <input
-          required
-          type="email"
-          placeholder={undefined}
-          aria-placeholder="Email Address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="md:w-4/5 w-full bg-white border p-3 focus:outline-none rounded-lg"
-        />
+        <label htmlFor="newsletter-email" className="sr-only">
+  Email Address
+</label>
+
+<input
+  id="newsletter-email"
+  name="email"
+  required
+  type="email"
+  placeholder="Email Address"
+  aria-label="Email Address"
+  autoComplete="email"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  className="md:w-4/5 w-full bg-white border p-3 focus:outline-none rounded-lg"
+/>
         <button
           type="submit"
           className="md:w-fit whitespace-nowrap w-full text-center items-center justify-center inline-flex text-neutral5 bg-primary1 hover:bg-slate-800 border border-[#fff3] font-medium transition-all duration-200 py-2.5 px-5 rounded-lg"
