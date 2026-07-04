@@ -15,7 +15,7 @@ export default function FloatingWhatsApp({
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp"
-      className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[9999] hover:scale-110 transition-transform duration-300 ${className}`}
+      className={`fixed bottom-16 right-4 md:bottom-6 md:right-6 z-[9999] hover:scale-110 transition-transform duration-300 ${className}`}
     >
       <Image
         src="/whatsapp-icon.png"
